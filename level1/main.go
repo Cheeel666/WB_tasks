@@ -32,6 +32,7 @@ import (
 	"wb_homework/task34"
 	"wb_homework/task4"
 	"wb_homework/task5"
+	"wb_homework/task6"
 	"wb_homework/task7"
 	"wb_homework/task8"
 	"wb_homework/task9"
@@ -50,7 +51,7 @@ func run(num int) {
 	case 5:
 		task5.Run()
 	case 6:
-		fmt.Println("TODO")
+		task6.Run()
 	case 7:
 		task7.Run()
 	case 8:

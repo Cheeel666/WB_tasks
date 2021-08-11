@@ -6,34 +6,43 @@ import (
 )
 
 func reader(ch <-chan int) {
-	for _ = range ch {
-		fmt.Println("Readed from channel:", <-ch)
+	for i := range ch {
+		fmt.Println("Readed from channel:", i)
 	}
 }
 
-func writer(ch chan<- int) {
+func writer(ch chan<- int, end <-chan bool) {
 	for i := 0; ; i++ {
-		ch <- i
+		select {
+		case <-end:
+			return
+		default:
+			ch <- i
+		}
 	}
 }
 
-// func waiter(ch chan<- int, n int) {
-// 	time.Sleep(time.Duration(n) * time.Second)
-// 	ch <- 1
-// }
+func waiter(ch chan<- bool, n int) {
+	// fmt.Println("strat")
+	time.Sleep(time.Duration(n) * time.Second)
+	// fmt.Println("end")
+	ch <- true
+}
 
 func Run() {
 	var n int
 	fmt.Println("Введите количество секунд:")
 	fmt.Scanf("%d", &n)
 	mainChannel := make(chan int)
-	// waitChannel := make(chan int)
+	waitChannel := make(chan bool)
 
 	go reader(mainChannel)
-	go writer(mainChannel)
-	// go waiter(waitChannel, n)
-
-	// самый простой способ, но тогда программа валится с паникой
+	go writer(mainChannel, waitChannel)
+	go waiter(waitChannel, n)
 	time.Sleep(time.Duration(n) * time.Second)
-	close(mainChannel)
+	// fmt.Println(<-waitChannel)
+	return
+	// // самый простой способ, но тогда программа валится с паникой
+	// time.Sleep(time.Duration(n) * time.Second)
+	// close(mainChannel)
 }
