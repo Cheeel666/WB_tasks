@@ -9,5 +9,8 @@ func main() {
 	// patterns.BuilderPattern()
 	// patterns.VisitorPattern()
 	// patterns.CommandPattern()
-	patterns.ChainOfResponsibilityPattern()
+	// patterns.ChainOfResponsibilityPattern()
+	// patterns.FactoryMethodPattern()
+	// patterns.StrategyPattern()
+	patterns.StatePattern()
 }
