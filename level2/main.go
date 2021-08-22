@@ -3,6 +3,8 @@ package main
 // import (
 // 	"level2/patterns"
 // 	"level2/theory"
+// import t "github.com/Cheeel666/WB_tasks/level2/practice/task1"
+
 // )
 
 func main() {
@@ -22,4 +24,5 @@ func main() {
 	// theory.Task5()
 	// theory.Task6()
 	// theory.Task7()
+	// t.TimeNow("")
 }

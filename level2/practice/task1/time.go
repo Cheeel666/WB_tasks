@@ -23,6 +23,6 @@ func TimeNow(server string) {
 	currentTime := time.Now()
 	exactTime := time.Now().Add(response.ClockOffset)
 
-	fmt.Printf("%s\n", currentTime)
-	fmt.Printf("%s\n", exactTime)
+	fmt.Println(currentTime)
+	fmt.Println(exactTime)
 }
