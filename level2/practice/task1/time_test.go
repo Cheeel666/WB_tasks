@@ -1,4 +1,4 @@
-package time
+package task1
 
 import (
 	"fmt"

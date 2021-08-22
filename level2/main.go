@@ -1,9 +1,5 @@
 package main
 
-import (
-	"level2/theory"
-)
-
 // import (
 // 	"level2/patterns"
 // 	"level2/theory"
@@ -25,5 +21,5 @@ func main() {
 	// theory.Task4()
 	// theory.Task5()
 	// theory.Task6()
-	theory.Task7()
+	// theory.Task7()
 }
