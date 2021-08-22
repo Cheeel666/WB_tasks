@@ -1,5 +1,5 @@
 module github.com/Cheeel666/WB_tasks/level2/practice/task1
-replace task1 => github.com/Cheeel666/WB_tasks/level2/practice/task1
+
 go 1.15
 
 require (
