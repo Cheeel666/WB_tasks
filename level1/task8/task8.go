@@ -35,7 +35,7 @@ func Run() {
 	if val == 1 {
 		n |= val << i
 	} else {
-		n = n &^ val << i
+		n &= n ^ val<<i - 1
 	}
 
 	nString = strconv.FormatInt(n, 10)
