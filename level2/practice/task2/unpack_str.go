@@ -5,6 +5,15 @@ import (
 	"strconv"
 )
 
+// strRev reverces string
+func strRev(str string) string {
+	runes := []rune(str)
+	for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
+		runes[i], runes[j] = runes[j], runes[i]
+	}
+	return string(runes)
+}
+
 // multChar multiples char
 func multChar(char string, n int) string {
 	resultStr := ""
@@ -32,19 +41,18 @@ func UnpackStr(str string) (string, error) {
 		return "", errors.New("Некорректная строка")
 	}
 
-	strRunes := []rune(str)
-	currentChar := strRunes[0]
+	strRunes := []rune(strRev(str))
+	n := 1
 
 	for i := 0; i < len(strRunes); i++ {
-		n, err := strconv.Atoi(string(strRunes[i]))
+		currentN, err := strconv.Atoi(string(strRunes[i]))
 
 		if err == nil {
-			result += multChar(string(currentChar), n-1)
-			currentChar = strRunes[i+1]
-		} else {
-			result += string(strRunes[i])
-			currentChar = strRunes[i]
+			n = currentN
+			continue
 		}
+		result += multChar(string(strRunes[i]), n)
+		n = 1
 	}
-	return result, nil
+	return strRev(result), nil
 }
