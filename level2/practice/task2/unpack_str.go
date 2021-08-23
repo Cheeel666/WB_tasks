@@ -49,10 +49,10 @@ func UnpackStr(str string) (string, error) {
 
 		if err == nil {
 			n = currentN
-			continue
+		} else {
+			result += multChar(string(strRunes[i]), n)
+			n = 1
 		}
-		result += multChar(string(strRunes[i]), n)
-		n = 1
 	}
 	return strRev(result), nil
 }
