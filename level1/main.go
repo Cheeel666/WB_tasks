@@ -113,6 +113,7 @@ func run(num int) {
 
 func main() {
 	var i int
+
 	fmt.Println("Input number:")
 	_, err := fmt.Scanf("%d", &i)
 

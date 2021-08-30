@@ -20,6 +20,7 @@ func sqareVal(arr chan int, res chan<- int) {
 	close(res)
 }
 
+// Run runs task2
 func Run() {
 	fmt.Println("Задание: Написать программу, которая конкурентно рассчитает значение квадратов значений взятых из массива (2,4,6,8,10) и выведет их квадраты в stdout.")
 	fmt.Println()

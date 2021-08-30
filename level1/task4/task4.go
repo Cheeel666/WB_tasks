@@ -32,12 +32,13 @@ func timer(ch chan<- int) {
 	ch <- 0
 }
 
+// Run func runs task4
 func Run() {
 	var n int
 	fmt.Println("Введите количество рабочих:")
 	fmt.Scanf("%d", &n)
 
-	// Пока делал задание узнал про замечательную вещь - интерфейсный тип данных, решил попробовать. Всем советую!
+	// интерфейсный тип - любое значение
 	channel := make(chan interface{})
 	endChannel := make(chan int)
 

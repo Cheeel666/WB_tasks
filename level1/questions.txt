@@ -1,17 +1,38 @@
 1)Какой самый эффективный способ работы с объединением строк?
+Используйте пакет bytes. Он имеет тип Buffer, который реализует io.Writer .
+Это делает это за O(n) время.
 
+package main
 
+import (
+    "bytes"
+    "fmt"
+)
+
+func main() {
+    var buffer bytes.Buffer
+
+    for i := 0; i < 1000; i++ {
+        buffer.WriteString("a")
+    }
+
+    fmt.Println(buffer.String())
+}
 2)Что такое интерфейсы, как они применяются в Go?
 
 
 3)Чем отличаются RWMutex от Mutex?
-
+RWMutex – Safely Allow Multiple Readers
+Maps are safe for concurrent read access, 
+just not concurrent read/write or write/write access. 
+A read/write mutex allows all the readers to access the map at the same time, 
+but a writer will lock out everyone else.
 
 4)Чем отличаются буферизированные и не буферизированные каналы?
 
 
 5)Какой размер пустой структуры struct{}{}?
-
+0 байт
 
 6)Какой способ определения двух слайсов предпочтительнее? 
 var a []int
@@ -20,6 +41,7 @@ a := []int{}
 
 7)Есть ли в Go перегрузка методов или операторов?
 
+В Go нет перегрузки методов и функций
 
 8)В какой последовательности будут выведены элементы map[int]int?
 
@@ -31,5 +53,7 @@ m[2]=281
 
 10)В чем разница make и new?
 
-
+p := new(chan int)   // p has type: *chan int
+c := make(chan int)  // c has type: chan int
+new возвращает указатель, make значение
 11)Сколько существует способов создать переменную типа slice или map?

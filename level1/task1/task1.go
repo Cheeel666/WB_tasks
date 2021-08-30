@@ -2,19 +2,19 @@ package task1
 
 import "fmt"
 
-// Структура человека
+// Human implements human
 type Human struct {
 	name string
 	age  int
 }
 
-// Структура действия, которая в качестве поля использует человека
+// Action implements human action
 type Action struct {
 	Human
 	madeAction bool
 }
 
-// NewAction - композиция структур
+// NewAction implements composition of structs
 func NewAction(name string, age int, makeAction bool) *Action {
 	return &Action{
 		Human: Human{
@@ -25,6 +25,7 @@ func NewAction(name string, age int, makeAction bool) *Action {
 	}
 }
 
+// Run implements run task function
 func Run() {
 	act := NewAction("ilya", 21, true)
 	fmt.Println("Задание: Реализовать композицию структуры Action от родительской структуры Human.")

@@ -28,6 +28,7 @@ func sumVal(arr chan int, res chan<- int) {
 	close(res)
 }
 
+// Run runs task3
 func Run() {
 	fmt.Println("Задание: Дана последовательность чисел  (2,4,6,8,10) найти их сумму квадратов(22+32+42….) с использованием конкурентных вычислений.")
 	fmt.Println()
