@@ -8,15 +8,6 @@ import (
 // 1 задача:
 // Написать программу переводящую строку в int число без использование стандартных библиотек
 
-// strRev reverces string
-func strRev(str string) string {
-	runes := []rune(str)
-	for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
-		runes[i], runes[j] = runes[j], runes[i]
-	}
-	return string(runes)
-}
-
 func myPow(a, b int) int {
 	var res int
 	res = 1
@@ -28,12 +19,12 @@ func myPow(a, b int) int {
 }
 
 func sToInt(str string) int {
-	strRune := []rune(strRev(str))
+	strRune := []rune(str)
 	var res int = 0
 	for i := 0; i < len(strRune); i++ {
 		// fmt.Println(int(strRune[i]))
 
-		res += (int(strRune[i]) - 48) * (myPow(10, i))
+		res += (int(strRune[i]) - 48) * (myPow(10, len(strRune)-i-1))
 	}
 	return res
 }
@@ -59,14 +50,7 @@ func polindrom(str string) bool {
 func main() {
 	var str string
 	// var num int
-	str = "1488"
+	str = "69123"
 	fmt.Println("Задача 1:")
 	fmt.Println(sToInt(str))
-
-	fmt.Println("Задача 2:")
-	strs := []string{"Я иду с мечем судия", "12344321", "22", "132354", "ksgjshjgjsg", "ss"}
-	for _, s := range strs {
-		fmt.Println(polindrom(s))
-	}
-
 }
