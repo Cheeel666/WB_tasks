@@ -1,11 +1,15 @@
 github.com/Cheeel666/WB_tasks v0.0.0-20210822163746-0fbcad0c14b8 h1:Y9br5x0Eq1DUBJ5Pn4THv+a2MIDsNkeS2k/5W5FUiIM=
 github.com/Cheeel666/WB_tasks v0.0.0-20210822181250-8dba011b99c1 h1:B2AIsahnbx2XW9lbbD0j3xzbh0gRPwRMIn9q94n+VjI=
+github.com/Cheeel666/WB_tasks v0.0.0-20210823190038-389c5b599f10 h1:LcByDuw4eDfaXwwQBXU9JxDxTomPg8ER5r79BMDX6f8=
 github.com/Cheeel666/WB_tasks/level2 v0.0.0-20210822163746-0fbcad0c14b8 h1:SaI3Lf3ucL2S5RiKDSr2GOXYKmna/mofaIl36AbNl3o=
 github.com/Cheeel666/WB_tasks/level2 v0.0.0-20210822181250-8dba011b99c1 h1:jm7CZI//Kvj3DNOidjf7HNk8kNz28KtzT/k6l4tDJFo=
+github.com/Cheeel666/WB_tasks/level2 v0.0.0-20210823181734-1f331c3078bc h1:rucW6YwiiiufXV9E4RU+J7WgW/yDSoR8nCceQz2p7fU=
 github.com/Cheeel666/WB_tasks/level2/practice/task1 v0.0.0-20210822170042-f6eb5a47e26b h1:4oxpieRPbRmj27ULv8ZdKfkVa8n0HbwO6PqQKnzDshY=
 github.com/Cheeel666/WB_tasks/level2/practice/task1 v0.0.0-20210822170042-f6eb5a47e26b/go.mod h1:L09cBO+T2vfGNYV7vLVYx9pry27sZgVxol7NdmyiybE=
 github.com/Cheeel666/WB_tasks/level2/practice/task2 v0.0.0-20210823181734-1f331c3078bc h1:ApXYMaO8SMHWX2n/0Z3GTl6BYNYiyYYoC3RteN3/mKk=
 github.com/Cheeel666/WB_tasks/level2/practice/task2 v0.0.0-20210823181734-1f331c3078bc/go.mod h1:cbezZ1Xl2JMkcqK1XYdTOdjA2QbenOz3zyq/puPSttU=
+github.com/Cheeel666/WB_tasks/level2/practice/task2 v0.0.0-20210823190038-389c5b599f10 h1:GiI/liVy6OHyedyxfWidEDl3qNBYc0k3204OocYMMoI=
+github.com/Cheeel666/WB_tasks/level2/practice/task2 v0.0.0-20210823190038-389c5b599f10/go.mod h1:cbezZ1Xl2JMkcqK1XYdTOdjA2QbenOz3zyq/puPSttU=
 github.com/beevik/ntp v0.3.0 h1:xzVrPrE4ziasFXgBVBZJDP0Wg/KpMwk2KHJ4Ba8GrDw=
 github.com/beevik/ntp v0.3.0/go.mod h1:hIHWr+l3+/clUnF44zdK+CWW7fO8dR5cIylAQ76NRpg=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

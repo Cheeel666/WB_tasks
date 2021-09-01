@@ -4,7 +4,11 @@ package main
 // 	"level2/patterns"
 // 	"level2/theory"
 // import t1 "github.com/Cheeel666/WB_tasks/level2/practice/task1"
-// import t2 "github.com/Cheeel666/WB_tasks/level2/practice/task2"
+// import (
+// 	"fmt"
+
+// 	t2 "github.com/Cheeel666/WB_tasks/level2/practice/task2"
+// )
 
 // )
 
@@ -28,5 +32,5 @@ func main() {
 
 	// practice
 	// t1.TimeNow("")
-	// fmt.Println(t2.UnpackStr(""))
+	// fmt.Println(t2.UnpackStr("a5"))
 }
