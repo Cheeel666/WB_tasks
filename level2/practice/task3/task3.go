@@ -117,6 +117,7 @@ func (s *Sort) Run() error {
 		for k, val := range keyFields {
 			key, err := strconv.Atoi(val)
 			key--
+
 			if err != nil || key <= 0 || key >= len(filesContent[k]) {
 				// fmt.Println("We are in error module")
 				errors.New("Invalid field value")
@@ -129,15 +130,84 @@ func (s *Sort) Run() error {
 					// fmt.Println("We are in comparator!")
 					return false
 				}
+				if !s.args.num {
 
-				if lVal[key] < rVal[key] {
+					if lVal[key] < rVal[key] {
+						return true
+					}
+					return false
+				} else {
+
+					leftInt, err1 := strconv.Atoi(lVal[key])
+					rightInt, err2 := strconv.Atoi(rVal[key])
+
+					if err1 == nil && err2 == nil {
+
+						if leftInt < rightInt {
+							return true
+						}
+						return false
+
+					} else if err1 != nil && err2 != nil {
+						if lVal[key] < rVal[key] {
+							return true
+						}
+					} else if err2 != nil {
+
+						return false
+					} else if err1 != nil {
+
+						return true
+					}
+
+					if lVal[key] < rVal[key] {
+						return true
+					}
+					return false
+
+				}
+
+			})
+		}
+	} else if !s.args.num {
+		sort.Strings(filesContent)
+	} else {
+		key := 0
+		sort.Slice(filesContent, func(i, j int) bool {
+			lVal := strings.Split(filesContent[i], " ")
+			rVal := strings.Split(filesContent[j], " ")
+			if len(lVal) <= key || len(rVal) <= key {
+				// fmt.Println("We are in comparator!")
+				return false
+			}
+			leftInt, err1 := strconv.Atoi(lVal[key])
+			rightInt, err2 := strconv.Atoi(rVal[key])
+
+			if err1 == nil && err2 == nil {
+
+				if leftInt < rightInt {
 					return true
 				}
 				return false
-			})
-		}
-	} else {
-		sort.Strings(filesContent)
+
+			} else if err1 != nil && err2 != nil {
+				if lVal[key] < rVal[key] {
+					return true
+				}
+			} else if err2 != nil {
+
+				return false
+			} else if err1 != nil {
+
+				return true
+			}
+
+			if lVal[key] < rVal[key] {
+				return true
+			}
+			return false
+
+		})
 	}
 
 	if s.args.rev {
