@@ -2,7 +2,6 @@ package task3
 
 import (
 	"bufio"
-	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -119,8 +118,8 @@ func (s *Sort) Run() error {
 			key--
 
 			if err != nil || key <= 0 || key >= len(filesContent[k]) {
-				// fmt.Println("We are in error module")
-				errors.New("Invalid field value")
+				fmt.Println("Invalid field value")
+				os.Exit(1)
 			}
 
 			sort.Slice(filesContent, func(i, j int) bool {
