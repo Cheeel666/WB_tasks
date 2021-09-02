@@ -116,6 +116,7 @@ func (s *Sort) Run() error {
 		// fmt.Println(len(strings.Split(filesContent[0], " ")))
 		for k, val := range keyFields {
 			key, err := strconv.Atoi(val)
+			key--
 			if err != nil || key <= 0 || key >= len(filesContent[k]) {
 				// fmt.Println("We are in error module")
 				errors.New("Invalid field value")
@@ -124,7 +125,7 @@ func (s *Sort) Run() error {
 			sort.Slice(filesContent, func(i, j int) bool {
 				lVal := strings.Split(filesContent[i], " ")
 				rVal := strings.Split(filesContent[j], " ")
-				if len(lVal[key]) >= key || len(rVal[key]) >= key {
+				if len(lVal) <= key || len(rVal) <= key {
 					// fmt.Println("We are in comparator!")
 					return false
 				}
