@@ -14,14 +14,16 @@ type flags struct {
 
 // GrepStruct contains a grep structure
 type GrepStruct struct {
-	pattern []string
+	pattern string
+	files   []string
 	flags
 }
 
 // Create creates an object of GrepStruct
-func Create(after, before, context int, count, ignoreCase, invert, fixed, lineNum bool, pattern []string) *GrepStruct {
+func Create(after, before, context int, count, ignoreCase, invert, fixed, lineNum bool, pattern string, files []string) *GrepStruct {
 	return &GrepStruct{
 		pattern: pattern,
+		files:   files,
 		flags: flags{
 			after:      after,
 			before:     before,

@@ -59,7 +59,7 @@ func main() {
 			Action: func(c *cli.Context) error {
 				grep := grepCustom.Create(c.Int("after"), c.Int("before"), c.Int("context"),
 					c.Bool("count"), c.Bool("ignoreCase"), c.Bool("invert"), c.Bool("fixed"),
-					c.Bool("lineNum"), c.Args().Slice())
+					c.Bool("lineNum"), c.Args().Slice()[0], c.Args().Slice()[1:])
 				fmt.Println(grep)
 				return nil
 			},
