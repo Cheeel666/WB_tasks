@@ -5,8 +5,8 @@ import (
 	"log"
 	"os"
 
-	sortCustom "utils/task3"
-	grepCustom "utils/task5"
+	sortCustom "utils/dev_03"
+	grepCustom "utils/dev_05"
 
 	"github.com/urfave/cli/v2"
 )
@@ -60,6 +60,7 @@ func main() {
 				grep := grepCustom.Create(c.Int("after"), c.Int("before"), c.Int("context"),
 					c.Bool("count"), c.Bool("ignoreCase"), c.Bool("invert"), c.Bool("fixed"),
 					c.Bool("lineNum"), c.Args().Slice()[0], c.Args().Slice()[1:])
+				grep.Run()
 				fmt.Println(grep)
 				return nil
 			},

@@ -56,4 +56,13 @@ m[2]=281
 p := new(chan int)   // p has type: *chan int
 c := make(chan int)  // c has type: chan int
 new возвращает указатель, make значение
+
 11)Сколько существует способов создать переменную типа slice или map?
+
+
+12) Способы остановки приложений
+
+
+
+
+1) 
