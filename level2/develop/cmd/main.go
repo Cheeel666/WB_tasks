@@ -61,7 +61,7 @@ func main() {
 					c.Bool("count"), c.Bool("ignoreCase"), c.Bool("invert"), c.Bool("fixed"),
 					c.Bool("lineNum"), c.Args().Slice()[0], c.Args().Slice()[1:])
 				grep.Run()
-				fmt.Println(grep)
+
 				return nil
 			},
 		},
