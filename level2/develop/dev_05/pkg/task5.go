@@ -79,6 +79,7 @@ func (g *GrepStruct) Run() error {
 			}
 		}
 	}
+
 	g.output(filesContent, rowsFinal)
 	return nil
 }

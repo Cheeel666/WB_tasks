@@ -1,4 +1,4 @@
-package cut
+package task6
 
 // CutStruct contains a cut structure
 type CutStruct struct {
