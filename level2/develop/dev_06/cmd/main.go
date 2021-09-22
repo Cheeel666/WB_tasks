@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 	cut "task6/pkg"
@@ -23,8 +22,8 @@ func main() {
 			},
 			Action: func(c *cli.Context) error {
 				cut := cut.Create(c.String("fields"), c.String("delimiter"), c.Bool("separated"))
-				fmt.Println(cut)
-				cut.Run()
+
+				cut.Run(c.Args().Slice())
 
 				return nil
 			},
