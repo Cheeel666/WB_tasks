@@ -9,7 +9,6 @@ import (
 )
 
 func main() {
-
 	app := &cli.App{}
 	app.UseShortOptionHandling = true
 	app.Commands = []*cli.Command{
