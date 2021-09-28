@@ -17,18 +17,21 @@ func (a *About) get(c *gin.Context) {
 
 // User implements user struct
 type User struct {
+	userID int
 }
 
 func (u *User) getUser(c *gin.Context) {
-
+	// Прочитали id юзера и проверили на корректность
 	userID := c.Param("userid")
 	correctID, err := strconv.Atoi(userID)
 
-	if correctID >= 0 && err == nil {
-		c.JSON(http.StatusOK, gin.H{"userId": userID})
+	// Если оно не корректно, отпровляем ответ, что все плохо
+	if err != nil || correctID < 0 {
+		c.JSON(http.StatusNotAcceptable, gin.H{"error": "user does not exists"})
 		return
 	}
-	c.JSON(http.StatusNotAcceptable, gin.H{"error": "user does not exists"})
+	// Конечный ответ
+	c.JSON(http.StatusOK, gin.H{"userId": userID})
 }
 
 // SetupServer - create server and endpoints
@@ -36,17 +39,15 @@ func SetupServer() *gin.Engine {
 	r := gin.Default()
 	var about About
 	var userTest User
-	api := r.Group("/api")
+	api := r.Group("/api/v1")
 	{
-		v1 := api.Group("/v1")
+		user := api.Group("/user")
 		{
-			user := v1.Group("/user")
-			{
-				user.GET("/:userid", userTest.getUser)
-			}
-
-			v1.GET("/about", about.get)
+			user.GET("/:userid", userTest.getUser)
 		}
+
+		api.GET("/about", about.get)
+
 	}
 	return r
 }
