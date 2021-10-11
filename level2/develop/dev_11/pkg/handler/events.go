@@ -4,6 +4,7 @@ import (
 	"dev11/pkg/model"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"strconv"
 	"time"
@@ -22,37 +23,31 @@ func (h *Handler) CreateEvent(w http.ResponseWriter, r *http.Request) {
 
 		return
 	}
-	r.ParseForm()
 	var event model.Event
-	var err error
+	body, err := ioutil.ReadAll(r.Body)
+	keyVal := make(map[string]string)
+	json.Unmarshal(body, &keyVal) // check for errors
 
-	event.Dt, err = time.Parse("2000-01-01", r.FormValue("date"))
+	event.UserID, err = strconv.Atoi(keyVal["user_id"])
 
-	event.Event = r.FormValue("event")
-	fmt.Println(event.Dt)
-	fmt.Println(event.Event)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(`{"error":"Bad request(bad data)"}`))
 		return
 	}
 
-	event.UserID, err = strconv.Atoi(r.FormValue("user_id"))
-	fmt.Println(event.Dt)
+	event.Dt, err = time.Parse("2006-01-02", keyVal["date"])
+
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(`{"error":"Bad request(bad data)"}`))
 		return
 	}
 
+	event.Event = keyVal["event"]
+	fmt.Println("event:", event.Event)
 	h.cal.CreateEvent(event)
-
-	// if err != nil {
-	// 	w.WriteHeader(http.StatusServiceUnavailable) //503 error в случ ошибки BI
-	// 	w.Write([]byte(`{"error":"BI error"}`))
-	// 	return
-	// }
-
+	fmt.Println(h.cal)
 	w.WriteHeader(http.StatusCreated)
 	w.Write([]byte(`{"result":"Event created"}`))
 }
@@ -65,11 +60,13 @@ func (h *Handler) UpdateEvent(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(`{"error":"bad request"}`))
 		return
 	}
-	r.ParseForm()
 	var event model.Event
-	var err error
-	event.Event = r.FormValue("event")
-	event.ID, err = strconv.Atoi(r.FormValue("id"))
+	body, err := ioutil.ReadAll(r.Body)
+	keyVal := make(map[string]string)
+	json.Unmarshal(body, &keyVal) // check for errors
+
+	event.ID, err = strconv.Atoi(keyVal["id"])
+	event.Event = keyVal["event"]
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(`{"error":"Bad request(bad data)"}`))
@@ -89,12 +86,13 @@ func (h *Handler) DeleteEvent(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(`{"error":"bad request"}`))
 		return
 	}
-	r.ParseForm()
-	fmt.Println(r.Form)
 	var event model.Event
-	var err error
-	event.ID, err = strconv.Atoi(r.FormValue("id"))
-	fmt.Println("id:", event.ID)
+	body, err := ioutil.ReadAll(r.Body)
+	keyVal := make(map[string]string)
+	json.Unmarshal(body, &keyVal) // check for errors
+
+	event.ID, err = strconv.Atoi(keyVal["id"])
+
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(`{"error":"Bad request(bad data)"}`))

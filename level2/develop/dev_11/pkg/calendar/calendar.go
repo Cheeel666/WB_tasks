@@ -2,6 +2,7 @@ package calendar
 
 import (
 	"dev11/pkg/model"
+	"fmt"
 	"sync"
 	"time"
 )
@@ -74,11 +75,15 @@ func (c *calendar) FindEvents(time string, date time.Time) ([]model.Event, error
 			}
 		}
 	case "month":
+		// fmt.Println("here")
+		fmt.Println(c.events)
 		dateStart := date.AddDate(0, -1, 0)
 		dateStop := date.AddDate(0, 1, 0)
 		for _, v := range c.events {
+			// fmt.Println("here now")
 			if v.Dt.After(dateStart) && v.Dt.Before(dateStop) {
 				result = append(result, v)
+				// fmt.Println("found event!")
 			}
 		}
 	}
