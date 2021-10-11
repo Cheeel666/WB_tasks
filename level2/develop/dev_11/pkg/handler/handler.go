@@ -1,16 +1,19 @@
 package handler
 
 import (
+	"dev11/pkg/calendar"
 	"dev11/pkg/middleware"
 	"net/http"
 )
 
 // Handler type implements handlers
 type Handler struct {
+	cal calendar.Calendar
 }
 
 // InitRoutes initilize routes
-func (h *Handler) InitRoutes() {
+func (h *Handler) InitRoutes(c calendar.Calendar) {
+	h.cal = c
 	// Обьявляем хендлеры, запросы для которых логгируются через middleware
 	http.Handle("/create_event", middleware.Logging(http.HandlerFunc(h.CreateEvent)))
 	http.Handle("/update_event", middleware.Logging(http.HandlerFunc(h.UpdateEvent)))

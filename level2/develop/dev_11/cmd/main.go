@@ -1,6 +1,7 @@
 package main
 
 import (
+	"dev11/pkg/calendar"
 	"dev11/pkg/handler"
 	"dev11/pkg/server"
 )
@@ -10,7 +11,9 @@ func main() {
 	// что юзается только стандартная библиотека. В данном случае просто инициализируем ручки в handlers.InitRoutes(), они
 	// автоматически прикручиваются к объекту srv.
 	handlers := new(handler.Handler)
-	handlers.InitRoutes()
+	cal := calendar.New()
+	handlers.InitRoutes(cal)
+
 	srv := new(server.Server)
 	srv.Run("8080")
 }
