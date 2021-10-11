@@ -20,8 +20,10 @@ func test5() *customError {
 func Task5() {
 	var err error
 	err = test5()
-	fmt.Println(err) // тут снова дело в интерфейсах, та же ошибка. Err -
-	if err != nil {  // пустой интерфейс != nil
+	fmt.Println(err)
+	typeof := fmt.Sprintf("%T", err)
+	fmt.Println(typeof) //*theory.customError
+	if err != nil {
 		println("error")
 		return
 	}
