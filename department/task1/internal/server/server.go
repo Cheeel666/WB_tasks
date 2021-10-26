@@ -22,8 +22,8 @@ func SetupServer(cfg config.Config) *gin.Engine {
 		user := api.Group("/user")
 		{
 			user.GET("/:userid", userTest.GetUser)
-			user.DELETE("/unban/:userid", userTest.UnbanUser)
-			user.PUT("/ban/:userid", userTest.BanUser)
+			user.DELETE("/:userid/block", userTest.UnbanUser)
+			user.PUT("/:userid/block", userTest.BanUser)
 		}
 
 		api.GET("/about", about.Get)
