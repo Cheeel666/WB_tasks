@@ -1,3 +1,4 @@
 {
-    "minID":0
+    "minID":0, 
+    "bannedUsrs":[10, 11, 101, 23]
 }
