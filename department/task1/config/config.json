@@ -1,4 +1,6 @@
 {
+    "port": ":8080",
+    "testPort": ":8081",
     "minID":0, 
     "bannedUsrs":[10, 11, 101, 23]
 }

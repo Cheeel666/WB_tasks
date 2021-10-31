@@ -3,6 +3,7 @@ package handlers
 import (
 	"net/http"
 	"strconv"
+	"sync"
 
 	"github.com/gin-gonic/gin"
 )
@@ -16,11 +17,24 @@ func (a *About) Get(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": "ok"})
 }
 
+// BannedUsers from server
+type BannedUsers struct {
+	Users map[int]bool
+	sync.RWMutex
+}
+
 // User implements user struct
 type User struct {
-	userID       int
-	UsrMinID     int
-	BanndedUsers map[int]bool
+	userID   int
+	UsrMinID int
+	BannedUsers
+}
+
+// NewUser returns insance of user
+func NewUser(usrMinID int) *User {
+	return &User{
+		UsrMinID: usrMinID,
+	}
 }
 
 // UnbanUser - delete user from ban list
@@ -31,7 +45,9 @@ func (u *User) UnbanUser(c *gin.Context) {
 		c.JSON(http.StatusNotAcceptable, gin.H{"error": "user does not exists"})
 		return
 	}
-	delete(u.BanndedUsers, correctID)
+	u.BannedUsers.RWMutex.Lock()
+	delete(u.BannedUsers.Users, correctID)
+	u.BannedUsers.RWMutex.Unlock()
 	// fmt.Println(u.BanndedUsers)
 	c.JSON(http.StatusOK, gin.H{"Status": userID + " deleted from ban list"})
 }
@@ -44,7 +60,9 @@ func (u *User) BanUser(c *gin.Context) {
 		c.JSON(http.StatusNotAcceptable, gin.H{"error": "user does not exists"})
 		return
 	}
-	u.BanndedUsers[correctID] = true
+	u.BannedUsers.RWMutex.Lock()
+	u.BannedUsers.Users[correctID] = true
+	u.BannedUsers.RWMutex.Unlock()
 	// fmt.Println(u.BanndedUsers)
 	c.JSON(http.StatusOK, gin.H{"Status": userID + " added to ban list"})
 }
@@ -61,10 +79,16 @@ func (u *User) GetUser(c *gin.Context) {
 		return
 	}
 
-	if u.BanndedUsers[correctID] {
+	if u.BannedUsers.Users[correctID] {
 		c.JSON(http.StatusForbidden, gin.H{"error": "user banned"})
 		return
 	}
 	// Конечный ответ
 	c.JSON(http.StatusOK, gin.H{"userId": userID})
+}
+
+// GetBlockedUsers returns user
+func (u *User) GetBlockedUsers(c *gin.Context) {
+	// Конечный ответ
+	c.JSON(http.StatusOK, gin.H{"users": u.BannedUsers.Users})
 }

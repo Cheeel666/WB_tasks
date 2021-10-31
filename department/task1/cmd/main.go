@@ -1,10 +1,15 @@
 package main
 
 import (
+	"fmt"
+	"net/http"
 	"task1/config"
+	"task1/internal/handlers"
 	"task1/internal/server"
 
+	"github.com/fasthttp/router"
 	"github.com/sirupsen/logrus"
+	"github.com/valyala/fasthttp"
 )
 
 const configPath = "config/config.json"
@@ -17,5 +22,32 @@ func main() {
 	if err != nil {
 		logrus.Fatal(err)
 	}
-	server.SetupServer(*cfg).Run()
+	listenErr := make(chan error, 1)
+
+	go func() {
+		rout := router.New()
+		var testUser handlers.TestUser
+		rout.GET("/test", func(c *fasthttp.RequestCtx) {
+			fmt.Println("OK")
+		})
+		rout.PUT("/test/user/ban", cors(testUser.TestUserBan))
+		// rout.DELETE("/test/user/unban/:workerCount")
+
+		listenErr <- fasthttp.ListenAndServe(cfg.TestPort, rout.Handler)
+		fmt.Println("Test server listen on:", cfg.TestPort)
+	}()
+	server.SetupServer(*cfg).Run(cfg.Port)
+}
+
+func cors(next fasthttp.RequestHandler) fasthttp.RequestHandler {
+	return func(ctx *fasthttp.RequestCtx) {
+		ctx.Response.Header.Set("Access-Control-Allow-Headers", "Content-Type,Accept")
+		ctx.Response.Header.Set("Access-Control-Allow-Methods", "OPTIONS,POST,GET, PUT, DELETE")
+		ctx.Response.Header.Set("Access-Control-Allow-Origin", "*")
+		if string(ctx.Method()) == http.MethodOptions {
+			ctx.Response.SetStatusCode(200)
+			return
+		}
+		next(ctx)
+	}
 }
