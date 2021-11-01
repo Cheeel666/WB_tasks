@@ -29,7 +29,7 @@ func sendBlockRequest(count int) {
 		if err != nil {
 			logrus.Error(err)
 		}
-
+		defer resp.Body.Close()
 		if resp.StatusCode != 200 {
 			logrus.Info("Request finished with status: ", resp.StatusCode)
 
@@ -42,7 +42,7 @@ func sendGetRequest(count int) {
 	var url string
 	client := &http.Client{}
 	for i := 0; i < count; i++ {
-		url = "http://localhost:8080/api/v1/user/12"
+		url = "http://localhost:8080/api/v1/user/blocked-users"
 		req, err := http.NewRequest(http.MethodGet, url, body)
 		if err != nil {
 			logrus.Error(err)
@@ -52,7 +52,7 @@ func sendGetRequest(count int) {
 		if err != nil {
 			logrus.Error(err)
 		}
-
+		defer resp.Body.Close()
 		if resp.StatusCode != 200 {
 			logrus.Info("Request finished with status: ", resp.StatusCode)
 		}
@@ -68,11 +68,10 @@ func (t *TestUser) TestUserBlock(c *fasthttp.RequestCtx) {
 	// 	c.Write([]byte("invalid number"))
 	// 	return
 	// }
-	countWorkers := 20
+	countWorkers := 10
 	for i := 0; i < countWorkers; i++ {
 		go sendBlockRequest(10)
 		go sendGetRequest(10)
-
 	}
 	c.Write([]byte("Finished testing Block users"))
 }

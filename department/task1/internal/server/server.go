@@ -17,6 +17,7 @@ func SetupServer(cfg config.Config) *gin.Engine {
 
 	var about handlers.About
 	userTest := handlers.NewUser(cfg.MinID)
+
 	userTest.BlockedUsers = utils.AddBlocked(cfg.BlockedUsers)
 
 	api := r.Group("/api/v1")

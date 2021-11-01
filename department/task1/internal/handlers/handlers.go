@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 	"sync"
@@ -27,8 +28,7 @@ type BlockedUsers struct {
 type User struct {
 	userID       int
 	UsrMinID     int
-	BlockedUsers map[int]bool
-	RWM          sync.RWMutex
+	BlockedUsers sync.Map
 }
 
 // NewUser returns insance of user
@@ -46,10 +46,7 @@ func (u *User) UnblockUser(c *gin.Context) {
 		c.JSON(http.StatusNotAcceptable, gin.H{"error": "user does not exists"})
 		return
 	}
-	u.RWM.Lock()
-	delete(u.BlockedUsers, correctID)
-	u.RWM.Unlock()
-	// fmt.Println(u.blockndedUsers)
+	u.BlockedUsers.Delete(correctID)
 	c.JSON(http.StatusOK, gin.H{"Status": userID + " deleted from block list"})
 }
 
@@ -61,10 +58,8 @@ func (u *User) BlockUser(c *gin.Context) {
 		c.JSON(http.StatusNotAcceptable, gin.H{"error": "user does not exists"})
 		return
 	}
-	u.RWM.Lock()
-	u.BlockedUsers[correctID] = true
-	u.RWM.Unlock()
-	// fmt.Println(u.blockndedUsers)
+	u.BlockedUsers.Store(correctID, true)
+
 	c.JSON(http.StatusOK, gin.H{"Status": userID + " added to block list"})
 }
 
@@ -79,9 +74,8 @@ func (u *User) GetUser(c *gin.Context) {
 		c.JSON(http.StatusNotAcceptable, gin.H{"error": "user does not exists"})
 		return
 	}
-	u.RWM.RLock()
-	_, exists := u.BlockedUsers[correctID]
-	u.RWM.RUnlock()
+	_, exists := u.BlockedUsers.Load(correctID)
+
 	if exists {
 		c.JSON(http.StatusForbidden, gin.H{"error": "user blocked"})
 		return
@@ -92,9 +86,11 @@ func (u *User) GetUser(c *gin.Context) {
 
 // GetBlockedUsers returns user
 func (u *User) GetBlockedUsers(c *gin.Context) {
-	u.RWM.RLock()
-	blockedUsers := u.BlockedUsers
-	u.RWM.RUnlock()
+	blockedUsers := make(map[string]bool)
+	u.BlockedUsers.Range(func(key, value interface{}) bool {
+		blockedUsers[fmt.Sprint(key)] = true
+		return true
+	})
 
 	// Конечный ответ
 	c.JSON(http.StatusOK, gin.H{"users": blockedUsers})
