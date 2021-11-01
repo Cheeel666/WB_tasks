@@ -30,8 +30,8 @@ func main() {
 		rout.GET("/test", func(c *fasthttp.RequestCtx) {
 			fmt.Println("OK")
 		})
-		rout.PUT("/test/user/ban", cors(testUser.TestUserBan))
-		// rout.DELETE("/test/user/unban/:workerCount")
+		rout.PUT("/test/user/block", cors(testUser.TestUserBlock))
+		// rout.DELETE("/test/user/unBlock/:workerCount")
 
 		listenErr <- fasthttp.ListenAndServe(cfg.TestPort, rout.Handler)
 		fmt.Println("Test server listen on:", cfg.TestPort)

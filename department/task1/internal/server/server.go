@@ -17,7 +17,7 @@ func SetupServer(cfg config.Config) *gin.Engine {
 
 	var about handlers.About
 	userTest := handlers.NewUser(cfg.MinID)
-	userTest.BannedUsers.Users = utils.AddBanned(cfg.BannedUsrs)
+	userTest.BlockedUsers = utils.AddBlocked(cfg.BlockedUsers)
 
 	api := r.Group("/api/v1")
 	{
@@ -25,8 +25,8 @@ func SetupServer(cfg config.Config) *gin.Engine {
 		{
 			user.GET("/:userid", userTest.GetUser)
 			user.GET("/blocked-users", userTest.GetBlockedUsers)
-			user.DELETE("/:userid/block", userTest.UnbanUser)
-			user.PUT("/:userid/block", userTest.BanUser)
+			user.DELETE("/:userid/block", userTest.UnblockUser)
+			user.PUT("/:userid/block", userTest.BlockUser)
 		}
 
 		api.GET("/about", about.Get)

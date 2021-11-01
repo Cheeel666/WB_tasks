@@ -7,10 +7,10 @@ import (
 
 // Config of service
 type Config struct {
-	Port       string `json:"port"`
-	TestPort   string `json:"testPort"`
-	MinID      int    `json:"minID"`
-	BannedUsrs []int  `json:"BannedUsrs"`
+	Port         string `json:"port"`
+	TestPort     string `json:"testPort"`
+	MinID        int    `json:"minID"`
+	BlockedUsers []int  `json:"BannedUsrs"`
 }
 
 // ParseConfig of service
